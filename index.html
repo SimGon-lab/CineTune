@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="index.js"></script>
+    <title>CineTune</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+        font-size: 16px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-style: italic;
+        background-color: rgb(239, 197, 247);
+        color: black;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+
+      h1 {
+        color: blueviolet;
+      }
+
+      h2 {
+        color: red;
+      }
+
+      header {
+        background-color: #c61e75;
+        padding: 12px;
+      }
+
+      /* 🌸 Gradient Navbar */
+      nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        background: linear-gradient(90deg, #ffd6f6, #d9b3ff, #a4e4fa);
+        padding: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+      /* Link styles */
+      nav a {
+        text-decoration: none;
+        color: purple;
+        font-weight: bold;
+        font-size: 18px;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: #ff4081;
+      }
+
+      /* Dark mode styles */
+      .dark-mode {
+        background-color: #0c0101;
+        color: white;
+      }
+
+      .dark-mode nav {
+        background: linear-gradient(90deg, #333, #555);
+      }
+
+      /* 🌙 Fancy Theme Toggle Button */
+      #theme-toggle {
+        margin-left: 10px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        border: 2px solid #9b59b6;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #c2a0ff, #a4e4fa);
+        color: #0e0101;
+        transition: all 0.3s ease;
+      }
+
+      #theme-toggle:hover {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #a4e4fa, #c2a0ff);
+      }
+
+      .dark-mode #theme-toggle {
+        background: linear-gradient(135deg, #ecd1d7, #7e5f64);
+        border-color: #ffcad4;
+        color: white;
+      }
+
+      /* RSVP section layout */
+      #rsvp-section {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      #rsvp-description {
+        flex: 1;
+      }
+
+      #rsvp-form-container {
+        flex: 1;
+      }
+
+      #rsvp-list {
+        flex: 1;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      #rsvp-list ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #rsvp-list li {
+        background-color: #f2f2f2;
+        margin: 5px 0;
+        padding: 8px;
+        border-radius: 5px;
+      }
+
+      input, textarea {
+        display: block;
+        margin: 8px 0;
+        padding: 6px;
+        width: 80%;
+      }
+
+      .invalid {
+        border: 2px solid red;
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        nav {
+          flex-direction: column;
+          align-items: center;
+        }
+        #rsvp-section {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+</body>
+<div id="film-particles"></div>
+<script src="index.js"></script>
+</html>
+
+  <body>
+    <nav>
+      <a href="movies.html">Movies</a>
+      <a href="music.html">Music</a>
+      <button id="theme-toggle">🌙 Dark Mode</button>
+    </nav>
+
+
+    <img id="header-img" src="./img/2practicecinetunelogo.png" alt="CineTune Logo" width="200" style="display: block; margin: 0 auto;">
+    <h1 style="text-align: center;">CineTune</h1>
+    <h2 style="text-align: center;">Created by Simone Gonzalez</h2>
+    
+
+    <h2>Connect your favorite movies and music! </h2>
+    <p>Ever watched a movie and thought a different song fits better?
+At CineTune, you create your own soundtrack.  What movie are going to pair with music you love?</p>
+        
+    <h3>Choose What To Connect: On this website, you can make a connection between your favorite movies and your favorite music {example below}. </h3>
+    <ul>
+      <li><b>Movie:</b> <i>The Notebook</i></li>
+      <li><b>Album:</b> <i>The Tortured Poets Department</i></li>
+      <li><b>Movie & Album Connect:</b> <i>The Tortured Poets Department is the alternate soundtrack I would choose for The Notebook.</i></li>
+    </ul>
+    <a class="block" href="https://www.youtube.com/watch?v=eXrmLd5mer4&list=OLAK5uy_lFbfW_UOra8dYRTa69lxR3fxYjogNtiQw&index=2">
+      <article>
+        <h3>I choose to connect the Tortured Poets Deparmtent to The Notebook</h3>
+        <img alt="Image description" src="./img/thenotebook.jpg" width="300" style="display: block; margin: 0 auto; text-align: center;">
+      <h3>+</h3>  
+      </h3><p>The Tortured Poets Department</p>
+      </article>
+    </a>
+
+    <script>
+      // 🌙 Theme toggle
+      const toggleButton = document.getElementById('theme-toggle');
+      toggleButton.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        toggleButton.textContent =
+          document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+      });
+
+      // 📝 RSVP form
+      const form = document.getElementById('rsvp-form');
+      const participantsList = document.getElementById('participants');
+      const countDisplay = document.getElementById('rsvp-count');
+      let rsvpCount = 0;
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const movie = document.getElementById('movie');
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+        let valid = true;
+
+        // Validate name and movie
+        [name, movie].forEach(input => {
+          if (!input.value.trim()) {
+            input.classList.add('invalid');
+            valid = false;
+          } else {
+            input.classList.remove('invalid');
+          }
+        });
+
+        // Validate email
+        if (!emailPattern.test(email.value)) {
+          email.classList.add('invalid');
+          valid = false;
+        } else {
+          email.classList.remove('invalid');
+        }
+
+        // If valid, add to list and update count
+        if (valid) {
+          const li = document.createElement('li');
+          li.textContent = `${name.value} - ${movie.value}`;
+          participantsList.appendChild(li);
+
+          rsvpCount++;
+          countDisplay.textContent = rsvpCount;
+
+          form.reset();
+        }
+      });
+    </script>
+  </body>
+
+<!-- RSVP Modal -->
+<div id="rsvp-overlay"></div>
+<div id="rsvp-modal">
+  <img id="rsvp-modal-img" src="./img/celebration.jpg" alt="Thank You!">
+  <h2>Thank you!</h2>
+  <p id="rsvp-modal-text"></p>
+</div>
+
+
+      <!-- Rating Links Section -->
+    <h3>Pick a film that inspires you</h3>
+    <p></p>
+    
+    <button class="start-btn">Make Your Connection 🎬🎧</button>
+
+
+    <h3>Choose the sountrack you would create</h3>
+    <p></p>
+    <button class="start-btn">Start Your Connection 🎬🎧</button>
+
+    <h2>Your Favorite Movie trailers:</h2>
+
+    <a class="block" href="https://www.youtube.com/watch?v=0pdqf4P9MB8">
+      <article>
+        <h3>La La Land Trailer</h3>
+        <img alt="Image description" src="./img/lalalandmovieposter.jpg" width="300" style="display: block; margin: 0 auto; text-align: center;">
+         </h3><p>Click Here</p>
+      </article>
+    </a>
+
+    <a class="block" href="https://www.youtube.com/watch?v=AST2-4db4ic">
+      <article>
+        <h3>Little Women Trailer</h3>
+        <img alt="Image description" src="./img/littlewomenmovieposter.jpg" width="300" style="display: block; margin: 0 auto; text-align: center;">
+        <p>Click Here</p>
+      </article>
+    </a>
+
+   <a class="block" href="https://www.youtube.com/watch?v=Ox8ZLF6cGM0">
+      <article>
+        <h3>Superman Trailer</h3>
+        <img alt="Image description" src="./img/Superman.jpg" width="300" style="display: block; margin: 0 auto; text-align: center;">
+        <p>Click Here</p>
+      </article>
+    </a>
+
+<!-- ✅ RSVP Section -->
+    <section id="rsvp-section">
+      <div id="rsvp-description">
+        <h2>Subscribe to Cinetune!</h2>
+        <p>Share your name, email, and favorite movie-song connection to be added to our list.</p>
+        <p><strong>Total:</strong> <span id="rsvp-count">0</span></p>
+      </div>
+
+      <div id="rsvp-form-container">
+        <form id="rsvp-form">
+          <label>Name:</label>
+          <input type="text" id="name" required>
+          <label>Email:</label>
+          <input type="email" id="email" required>
+          <label>Favorite Movie/Song Connection:</label>
+          <input type="text" id="movie" required>
+          <button type="submit">Submit!</button>
+        </form>
+      </div>
+
+      <div id="rsvp-list">
+        <h3>Cinetune Participants</h3>
+        <ul id="participants"></ul>
+      </div>
+    </section>
+
+<footer id="ticket-footer">
+  <div class="ticket-left">
+    <h3></h3>
+    <p>Where movies and music connect✨
+       </p>
+  </div>
+
+  <div class="ticket-center">
+    <p><strong></strong></p>
+    <p class="code">Codepath
+CineTune © 2025
+
+Designed with love by Simone 💗</p>
+  </div>
+
+  <div class="ticket-right">
+    <p>Where sound meets story: Admit One</p>
+    <div class="barcode"></div>
+  </div>
+</footer>
+
+</html>
